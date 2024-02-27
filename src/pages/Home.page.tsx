@@ -3,6 +3,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconHome2 } from '@tabler/icons-react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Paths } from '@/Router';
+import { ServiceButtons } from '@/components/ServiceButtons/ServiceButtons';
 
 function NavigationSidebar() {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ export function HomePage() {
       <AppShell.Navbar p="md">
         <NavigationSidebar />
         <Divider />
-        <NavigationSidebar />
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet />

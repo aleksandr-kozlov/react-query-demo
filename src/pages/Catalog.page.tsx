@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimpleGrid } from '@mantine/core';
+import { Button, Group, SimpleGrid } from '@mantine/core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/instruments/Instrument';
 import { getServerUrl } from '@/utils/urls';
@@ -9,6 +9,7 @@ import {
   InstrumentSection,
   InstrumentSectionPlaceholder,
 } from '@/components/InstrumentSections/InstrumentSections';
+import { ServiceButtons } from '@/components/ServiceButtons/ServiceButtons';
 
 const useRequest = <T,>(path: string) => {
   const [data, setData] = React.useState<T>();
@@ -109,8 +110,6 @@ const useStockInstruments = () =>
       fetch(getServerUrl('/instrumentsByType/stock')).then(
         (res) => res.json() as Promise<CatalogInstrumentType[]>
       ),
-    staleTime: 0,
-    cacheTime: 0,
   });
 
 const useBondInstruments = () =>
@@ -120,8 +119,6 @@ const useBondInstruments = () =>
       fetch(getServerUrl('/instrumentsByType/bond')).then(
         (res) => res.json() as Promise<CatalogInstrumentType[]>
       ),
-    staleTime: 0,
-    cacheTime: 0,
   });
 
 export function CatalogPage() {
