@@ -4,9 +4,12 @@ import { IconHome2 } from '@tabler/icons-react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Paths } from '@/Router';
 import { ServiceButtons } from '@/components/ServiceButtons/ServiceButtons';
+import { useActiveOperations } from '@/services/operations/useOperations';
 
 function NavigationSidebar() {
   const navigate = useNavigate();
+
+  const { data: activeOperations } = useActiveOperations();
 
   return (
     <>
@@ -24,9 +27,13 @@ function NavigationSidebar() {
         onClick={() => navigate(`${Paths.cart}`)}
         label="Заявки"
         leftSection={
-          <Badge size="xs" color="red" circle>
-            3
-          </Badge>
+          activeOperations?.length ? (
+            <Badge size="xs" color="red" circle>
+              {activeOperations.length}
+            </Badge>
+          ) : (
+            <Badge size="xs" color="grey" circle />
+          )
         }
       />
     </>

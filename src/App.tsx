@@ -5,14 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Router } from './Router';
 import { theme } from './theme';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      cacheTime: 100000,
-      staleTime: 100000,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 export default function App() {
   return (

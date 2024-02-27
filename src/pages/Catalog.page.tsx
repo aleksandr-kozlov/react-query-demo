@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Group, SimpleGrid } from '@mantine/core';
+import { Button, Drawer, Group, SimpleGrid } from '@mantine/core';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/instruments/Instrument';
 import { getServerUrl } from '@/utils/urls';
