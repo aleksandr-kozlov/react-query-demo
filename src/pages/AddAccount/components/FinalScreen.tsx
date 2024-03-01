@@ -1,24 +1,11 @@
 import React from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Stack, Text, Button, Container, Loader } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
-import { getServerUrl } from '@/utils/urls';
 
 export function FinalScreen() {
-    const client = useQueryClient();
-    const navigate = useNavigate();
+    const isLoading = false;
+    const createAccount = () => {};
 
-    const { mutate: createAccount, isLoading: isCreating, isSuccess: isCreated } = useMutation({
-        mutationFn: () => fetch(getServerUrl('/accounts'), {
-            method: 'PUT',
-        }),
-        onSuccess: async () => {
-            await client.invalidateQueries(['accounts', 'list']);
-            navigate('/accounts');
-        },
-    });
-
-    if (isCreating || isCreated) {
+    if (isLoading) {
         return <Loader />;
     }
 

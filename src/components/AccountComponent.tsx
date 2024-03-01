@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Paper, SimpleGrid, Skeleton, Text } from '@mantine/core';
-import { Account } from '@/server/src/instruments/accounts';
+import { Account } from '@/server/src/entities/accounts';
 import { CatalogInstrumentPlaceholder } from '@/components/placeholders/CatalogInstrumentPlaceholder';
 
 interface IProps {

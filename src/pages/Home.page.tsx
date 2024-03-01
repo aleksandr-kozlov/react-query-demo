@@ -5,11 +5,12 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Paths } from '@/Router';
 import { ServiceButtons } from '@/components/ServiceButtons/ServiceButtons';
 import { useActiveOperations } from '@/services/operations/useOperations';
+import { OperationBuilder } from '@/server/src/entities/operations';
 
 function NavigationSidebar() {
   const navigate = useNavigate();
 
-  const { data: activeOperations } = useActiveOperations();
+  const activeOperations = OperationBuilder.many(3);
 
   return (
     <>

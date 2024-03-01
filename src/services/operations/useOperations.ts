@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Operation } from '@/server/src/instruments/operations';
+import { Operation } from '@/server/src/entities/operations';
 import { getServerUrl } from '@/utils/urls';
 
 const requestOperations = () =>

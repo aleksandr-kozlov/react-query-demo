@@ -10,7 +10,7 @@ import {
   Loader,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/instruments/Instrument';
+import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/entities/Instrument';
 import { BuyForm } from '../BuyForm/BuyForm';
 
 type Props = {

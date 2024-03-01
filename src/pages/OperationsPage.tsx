@@ -1,8 +1,10 @@
 import { NumberFormatter, Badge, Group, Paper, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useOperations } from '@/services/operations/useOperations';
+import { OperationBuilder } from '@/server/src/entities/operations';
 
 export function OperationsPage() {
-  const { data: operations, isLoading } = useOperations();
+  const operations = OperationBuilder.many(3);
+  const isLoading = false;
 
   if (isLoading) {
     return <div>Loading</div>;

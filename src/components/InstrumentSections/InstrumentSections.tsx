@@ -1,6 +1,6 @@
 import { SimpleGrid, Skeleton, Stack, Text } from '@mantine/core';
 import React from 'react';
-import { CatalogInstrument } from '@/server/src/instruments/Instrument';
+import { CatalogInstrument } from '@/server/src/entities/Instrument';
 import { InstrumentCard } from '../CatalogInstrument/CatalogInstrument';
 import { CatalogInstrumentPlaceholder } from '../placeholders/CatalogInstrumentPlaceholder';
 

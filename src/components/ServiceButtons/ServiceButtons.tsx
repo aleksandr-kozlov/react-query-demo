@@ -2,7 +2,7 @@ import { Button, Group, Stack } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { getServerUrl } from '@/utils/urls';
-import { CatalogInstrument } from '@/server/src/instruments/Instrument';
+import { CatalogInstrument } from '@/server/src/entities/Instrument';
 
 export const ServiceButtons = () => {
   const client = useQueryClient();
