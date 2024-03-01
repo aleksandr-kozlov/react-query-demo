@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HomePage } from './pages/Home.page';
-import { ProductsPage } from './pages/Products.page';
-import { CartPage } from './pages/Cart.page';
+import { AccountsPage } from './pages/AccountsPage';
+import { OperationsPage } from './pages/OperationsPage';
 import { CatalogPage } from './pages/Catalog.page';
+import { AddAccountPage } from './pages/AddAccountPage';
 
 export enum Paths {
-  portfolio = 'portfolio',
+  accounts = 'accounts',
   catalog = 'catalog',
-  cart = 'cart',
+  operations = 'operations',
+  addAccount = 'add_account',
 }
 
 const router = createBrowserRouter([
@@ -15,14 +17,21 @@ const router = createBrowserRouter([
     path: '/',
     element: <HomePage />,
     children: [
-      { path: Paths.portfolio, element: <ProductsPage /> },
+      {
+        path: Paths.accounts,
+        element: <AccountsPage />,
+      },
       {
         path: Paths.catalog,
         element: <CatalogPage />,
       },
       {
-        path: Paths.cart,
-        element: <CartPage />,
+        path: Paths.operations,
+        element: <OperationsPage />,
+      },
+      {
+        path: Paths.addAccount,
+        element: <AddAccountPage />,
       },
     ],
   },

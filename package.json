@@ -64,7 +64,7 @@
     "storybook-dark-mode": "^3.0.3",
     "stylelint": "^16.0.2",
     "stylelint-config-standard-scss": "^12.0.0",
-    "typescript": "^5.3.3",
+    "typescript": "4.9.5",
     "vite": "^5.0.10",
     "vite-tsconfig-paths": "^4.2.2",
     "vitest": "^1.1.0"

@@ -14,7 +14,7 @@ function NavigationSidebar() {
   return (
     <>
       <NavLink
-        onClick={() => navigate(`${Paths.portfolio}`)}
+        onClick={() => navigate(`${Paths.accounts}`)}
         label="Портфель"
         leftSection={<IconHome2 size="1rem" stroke={1.5} />}
       />
@@ -24,7 +24,7 @@ function NavigationSidebar() {
         leftSection={<IconHome2 size="1rem" stroke={1.5} />}
       />
       <NavLink
-        onClick={() => navigate(`${Paths.cart}`)}
+        onClick={() => navigate(`${Paths.operations}`)}
         label="Заявки"
         leftSection={
           activeOperations?.length ? (

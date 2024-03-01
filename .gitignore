@@ -132,4 +132,4 @@ dist
 .DS_Store
 .idea/
 
-src/server/operations.json
+src/server/src/storage/

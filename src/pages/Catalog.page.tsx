@@ -1,15 +1,12 @@
 import React from 'react';
-import { Button, Drawer, Group, SimpleGrid } from '@mantine/core';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/instruments/Instrument';
+import { SimpleGrid } from '@mantine/core';
+import { useQuery } from '@tanstack/react-query';
+import { CatalogInstrument } from '@/server/src/instruments/Instrument';
 import { getServerUrl } from '@/utils/urls';
-import { InstrumentCard } from '@/components/CatalogInstrument/CatalogInstrument';
-import { CatalogInstrumentPlaceholder } from '@/components/placeholders/CatalogInstrumentPlaceholder';
 import {
   InstrumentSection,
   InstrumentSectionPlaceholder,
 } from '@/components/InstrumentSections/InstrumentSections';
-import { ServiceButtons } from '@/components/ServiceButtons/ServiceButtons';
 
 const useRequest = <T,>(path: string) => {
   const [data, setData] = React.useState<T>();
@@ -64,19 +61,19 @@ const useRequestRefreshable = <T,>(path: string, refreshInterval: number) => {
 };
 
 const splitByTypes = (
-  data: CatalogInstrumentType[]
+  data: CatalogInstrument[]
 ): {
-  stocks: CatalogInstrumentType[];
-  bonds: CatalogInstrumentType[];
+  stocks: CatalogInstrument[];
+  bonds: CatalogInstrument[];
 } => {
   console.log('calculate');
   return data.reduce(
     (
       acc: {
-        stocks: CatalogInstrumentType[];
-        bonds: CatalogInstrumentType[];
+        stocks: CatalogInstrument[];
+        bonds: CatalogInstrument[];
       },
-      item: CatalogInstrumentType
+      item: CatalogInstrument
     ) => {
       switch (item.type) {
         case 'bond':
@@ -97,7 +94,7 @@ const useInstruments = () =>
     queryKey: ['catalog', 'instruments'],
     queryFn: () =>
       fetch(getServerUrl('/instruments')).then(
-        (res) => res.json() as Promise<CatalogInstrumentType[]>
+        (res) => res.json() as Promise<CatalogInstrument[]>
       ),
     staleTime: 0,
     cacheTime: 0,
@@ -108,7 +105,7 @@ const useStockInstruments = () =>
     queryKey: ['catalog', 'instruments', 'stocks'],
     queryFn: () =>
       fetch(getServerUrl('/instrumentsByType/stock')).then(
-        (res) => res.json() as Promise<CatalogInstrumentType[]>
+        (res) => res.json() as Promise<CatalogInstrument[]>
       ),
   });
 
@@ -117,7 +114,7 @@ const useBondInstruments = () =>
     queryKey: ['catalog', 'instruments', 'bonds'],
     queryFn: () =>
       fetch(getServerUrl('/instrumentsByType/bond')).then(
-        (res) => res.json() as Promise<CatalogInstrumentType[]>
+        (res) => res.json() as Promise<CatalogInstrument[]>
       ),
   });
 

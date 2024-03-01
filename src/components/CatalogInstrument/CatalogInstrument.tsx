@@ -10,9 +10,7 @@ import {
   Loader,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useMutation } from '@tanstack/react-query';
 import { CatalogInstrument as CatalogInstrumentType } from '@/server/src/instruments/Instrument';
-import { getServerUrl } from '@/utils/urls';
 import { BuyForm } from '../BuyForm/BuyForm';
 
 type Props = {
