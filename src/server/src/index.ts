@@ -101,7 +101,7 @@ app.put('/accounts', (req: Request, res: Response) => {
         res.json(err);
       } else {
         const records = JSON.parse(data);
-        const newAccount = AccountBuilder.one({ traits: 'new_account', overrides: { name: req.body.name } });
+        const newAccount = AccountBuilder.one({ traits: 'new_account' });
 
         records.push(newAccount);
 

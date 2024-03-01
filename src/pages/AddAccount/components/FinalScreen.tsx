@@ -9,10 +9,8 @@ export function FinalScreen() {
     const navigate = useNavigate();
 
     const { mutate: createAccount, isLoading: isCreating, isSuccess: isCreated } = useMutation({
-        mutationFn: (accountData: { name: string }) => fetch(getServerUrl('/accounts'), {
+        mutationFn: () => fetch(getServerUrl('/accounts'), {
             method: 'PUT',
-            body: JSON.stringify(accountData),
-            headers: { 'Content-Type': 'application/json' },
         }),
         onSuccess: async () => {
             await client.invalidateQueries(['accounts', 'list']);
@@ -28,7 +26,7 @@ export function FinalScreen() {
         <Container py={24}>
             <Stack>
                 <Text fw={700} mb={20}>Проверьте что все правильно</Text>
-                <Button onClick={() => createAccount({ name: 'Новый счет ' })}>Все хорошо</Button>
+                <Button onClick={() => createAccount()}>Все хорошо</Button>
             </Stack>
         </Container>
     );

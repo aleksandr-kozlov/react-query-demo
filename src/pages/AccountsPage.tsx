@@ -1,10 +1,10 @@
-import { Button } from '@mantine/core';
+import { Button, SimpleGrid, Space } from '@mantine/core';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { getServerUrl } from '@/utils/urls';
 import { Account } from '@/server/src/instruments/accounts';
-import { AccountComponent } from '@/components/AccountComponent';
+import { AccountComponent, AccountComponentPlaceholder } from '@/components/AccountComponent';
 import { Paths } from '@/Router';
 
 export const useAccounts = () => useQuery({
@@ -18,15 +18,17 @@ export function AccountsPage() {
 
     const handleAddAccount = () => navigate(`/${Paths.addAccount}`);
 
-  if (isLoading) {
-      return <div>loading</div>;
-  }
-
   return (
       <>
-          {accounts?.map((account) => (
-              <AccountComponent key={account.id} account={account} />
-          ))}
+          <SimpleGrid spacing="xs" cols={1}>
+              {isLoading ? <AccountComponentPlaceholder /> : (
+                  <>
+                      {accounts?.map((account) => (
+                          <AccountComponent key={account.id} account={account} />
+                      ))}
+                  </>
+              )}
+          </SimpleGrid>
           <Button onClick={handleAddAccount} mt={20}>Добавить новый счет</Button>
       </>
   );
