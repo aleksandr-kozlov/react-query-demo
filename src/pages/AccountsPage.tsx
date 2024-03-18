@@ -1,14 +1,20 @@
-import { Button, SimpleGrid, Space } from '@mantine/core';
+import { Button, SimpleGrid } from '@mantine/core';
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Account, AccountBuilder } from '@/server/src/entities/accounts';
+import { getServerUrl } from '@/utils/urls';
+import { Account } from '@/server/src/entities/accounts';
 import { AccountComponent, AccountComponentPlaceholder } from '@/components/AccountComponent';
 import { Paths } from '@/Router';
 
+export const useAccounts = () => useQuery({
+        queryKey: ['accounts', 'list'],
+        queryFn: () => fetch(getServerUrl('/accounts')).then((res) => res.json() as Promise<Account[]>),
+    });
+
 export function AccountsPage() {
-    const navigate = useNavigate();
-  const isLoading = false;
-  const accounts = AccountBuilder.many(3);
+  const { data: accounts, isLoading } = useAccounts();
+  const navigate = useNavigate();
 
     const handleAddAccount = () => navigate(`/${Paths.addAccount}`);
 

@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-import { CatalogInstrumentBuilder } from './entities/Instrument';
+import { CatalogInstrumentBuilder } from './entities/instrument';
 import { OperationBuilder } from './entities/operations';
 import { Account, AccountBuilder } from './entities/accounts';
 import { AgreementBuilder } from './entities/agreements';
@@ -22,32 +22,10 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 const port = process.env.PORT;
 
-/**
- * Получение инструментов для каталога
- * */
 app.get('/instruments', (req: Request, res: Response) => {
   setTimeout(() => res.send(CatalogInstrumentBuilder.many(6)), throttle);
 });
 
-/**
- * Получение инструментов по типу
- * */
-app.get('/instrumentsByType/:type', (req: Request, res: Response) => {
-  if (!req.params?.type) {
-    res.sendStatus(422);
-    return;
-  }
-
-  setTimeout(
-      () =>
-          res.send(CatalogInstrumentBuilder.many(3, { overrides: { type: req.params.type as any } })),
-      throttle
-  );
-});
-
-/**
- * Покупка инструмента
- */
 app.put('/instruments/buy', (req: Request, res: Response) => {
   if (!req.body) {
     return res.sendStatus(422);
@@ -89,23 +67,31 @@ app.put('/instruments/buy', (req: Request, res: Response) => {
   }
 });
 
-/**
- * Получение списка операций
- */
+app.get('/instrumentsByType/:type', (req: Request, res: Response) => {
+  if (!req.params?.type) {
+    res.sendStatus(422);
+    return;
+  }
+
+  setTimeout(
+    () =>
+      res.send(CatalogInstrumentBuilder.many(3, { overrides: { type: req.params.type as any } })),
+    throttle
+  );
+});
+
 app.get('/operations', (req: Request, res: Response) => {
   const fileData = fs.readFileSync(operationsStoragePath, 'utf8');
 
   setTimeout(() => res.json(JSON.parse(fileData)), 3000);
 });
 
-/** получение списка аккаунтов */
 app.get('/accounts', (req: Request, res: Response) => {
   const fileData = fs.readFileSync(accountsStoragePath, 'utf8');
 
   setTimeout(() => res.json(JSON.parse(fileData)), 1000);
 });
 
-/** Добавление аккаунта */
 app.put('/accounts', (req: Request, res: Response) => {
   if (!req.body) {
     res.sendStatus(422);
@@ -126,21 +112,18 @@ app.put('/accounts', (req: Request, res: Response) => {
   }
 });
 
-/** Получение соглашений */
 app.get('/agreements', (req: Request, res: Response) => {
   const agreements = [AgreementBuilder.one({ overrides: { name: 'Соглашение о чем-то' } }), AgreementBuilder.one({ overrides: { name: 'Дополнительное соглашение о чем-то' } })];
 
   setTimeout(() => res.json(agreements), throttle);
 });
 
-/** Подтверждение соглашений */
 app.patch('/agreements', (req: Request, res: Response) => {
   setTimeout(() => res.sendStatus(200), throttle);
 });
 
 let documentGenerationAttempts = 0;
 
-/** Получение документов */
 app.get('/documents', (req: Request, res: Response) => {
   if (documentGenerationAttempts > 5) {
     documentGenerationAttempts = 0;
@@ -151,7 +134,6 @@ app.get('/documents', (req: Request, res: Response) => {
   }
 });
 
-/** Подписание документов */
 app.patch('/documents', (req: Request, res: Response) => {
   setTimeout(() => res.sendStatus(200), throttle);
 });

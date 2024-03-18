@@ -2,22 +2,33 @@ import React from 'react';
 import { Button, Container, List, Loader, Stack, Text } from '@mantine/core';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getServerUrl } from '@/utils/urls';
-import { Agreement, AgreementBuilder } from '@/server/src/entities/agreements';
+import { Agreement } from '@/server/src/entities/agreements';
 
 interface IProps {
     onSigned: () => void;
 }
 
 export const Documents: React.FC<IProps> = ({ onSigned }) => {
-    const isLoading = false;
-    const documents = AgreementBuilder.many(3);
-    const sign = () => {};
+    const { data: documents, isSuccess: isDocumentsGenerated } = useQuery({
+        queryKey: ['account', 'documents'],
+        queryFn: () => fetch(getServerUrl('/documents')).then(res => res.json() as Promise<Agreement[]>),
+        cacheTime: 0,
+        retryDelay: 1000,
+        retry: true,
+    });
+
+    const { mutate: sign, isLoading: isSigning, isSuccess: isSigned } = useMutation({
+        mutationFn: () => fetch(getServerUrl('/documents'), {
+            method: 'PATCH',
+        }),
+        onSuccess: onSigned,
+    });
 
     return (
         <Container py={24}>
             <Stack>
                 <Text>Подпишите документы для открытия счета</Text>
-                {isLoading ? <Loader /> : (
+                {!isDocumentsGenerated || isSigning || isSigned ? <Loader /> : (
                     <>
                         <List>
                             {documents?.map((document) => (

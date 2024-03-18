@@ -1,9 +1,11 @@
 import { Button, Loader, NumberFormatter, Stack, Text, Select } from '@mantine/core';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
-import { CatalogInstrument } from '@/server/src/entities/Instrument';
+import { CatalogInstrument } from '@/server/src/entities/instrument';
 import { getServerUrl } from '@/utils/urls';
 import { Operation } from '@/server/src/entities/operations';
-import { Account, AccountBuilder } from '@/server/src/entities/accounts';
+import { useAccounts } from '@/pages/AccountsPage';
+import { Account } from '@/server/src/entities/accounts';
 
 interface IProps {
   instrument: CatalogInstrument;
@@ -11,9 +13,23 @@ interface IProps {
 }
 
 export const BuyForm: React.FC<IProps> = ({ instrument, onContinue }) => {
+  const client = useQueryClient();
+
     const [selectedAccount, setSelectedAccount] = React.useState<Account>();
-    const accounts = AccountBuilder.many(3);
-    const [isLoading, isError, isSuccess] = [false, false, false];
+    const { data: accounts } = useAccounts();
+
+  const { mutate, isLoading, isSuccess, isError } = useMutation({
+    mutationFn: () =>
+      fetch(getServerUrl('/instruments/buy'), {
+        method: 'PUT',
+        body: JSON.stringify({ instrument, accountId: selectedAccount?.id }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then((res) => res.json() as Promise<Operation>),
+    onSuccess: (data) => {
+        client.setQueryData(['operations'], (previous?: Operation[]) => [...(previous || []), data]);
+        return client.invalidateQueries(['accounts', 'list']);
+    },
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -52,7 +68,11 @@ export const BuyForm: React.FC<IProps> = ({ instrument, onContinue }) => {
           data={accounts?.map(account => account.name)}
         />
       <Button
-        onClick={() => {}}
+        onClick={() =>
+          mutate(undefined, {
+            onSuccess: () => {},
+          })
+        }
       >
         Отправить завку
       </Button>

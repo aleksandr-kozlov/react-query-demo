@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { build, oneOf, perBuild } from '@jackfranklin/test-data-bot';
-import { CatalogInstrument, CatalogInstrumentBuilder } from './Instrument';
+import { CatalogInstrument, CatalogInstrumentBuilder } from './instrument';
 
 export type Operation = {
   id: string;
