@@ -1,4 +1,4 @@
-# Mantine Vite template
+# React query demo
 
 ## Features
 
@@ -9,6 +9,22 @@ This template comes with the following features:
 - [Storybook](https://storybook.js.org/)
 - [Vitest](https://vitest.dev/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+
+## Запуск проекта
+
+ Требуется node 18 версии
+
+### Запуска фронтенда
+
+1. yarn install
+2. yarn dev
+
+### Запуск сервера
+
+1. cd src/server
+2. yarn install
+3. yarn run init
+4. yarn dev
 
 ## npm scripts
 
@@ -32,3 +48,4 @@ This template comes with the following features:
 - `storybook` – starts storybook dev server
 - `storybook:build` – build production storybook bundle to `storybook-static`
 - `prettier:write` – formats all files with Prettier
+
